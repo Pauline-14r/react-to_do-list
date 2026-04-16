@@ -34,12 +34,14 @@
 }
 
 .task-area {
+	margin: 0 auto;
 	width: 750px;
 	height: 700px;
 	margin-top: -27px;
 	position: relative;
 	z-index: 2;
 	display: flex;
+	gap: 20px;
 	flex-direction: column;
 	align-items: center;
 	background: transparent;
@@ -61,7 +63,7 @@
 	border: none;
 	border-radius: 8px;
 	background-color: rgba(51, 51, 51, 1);
-	color: rgba(38, 38, 38, 1);
+	color: rgba(242, 242, 242, 1);
 }
 
 .input-area_button {
@@ -71,8 +73,88 @@
 	border-radius: 8px;
 	background-color: rgba(30, 111, 159, 1);
 	color: rgba(242, 242, 242, 1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
 }
 
+.all-tasks {
+	margin: 0 auto;
+	width: 750px;
+	height: 380px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
+
+.all-tasks_tasklist {
+	padding-left: 0;
+  margin: 0;
+	width: 740px;
+	height: 380px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	list-style: none;
+}
+
+.all-tasks_list-item {
+	width: 100%;
+	height: 56px;
+	background-color: rgba(38, 38, 38, 1);
+	color: rgba(242, 242, 242, 1);
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	border-radius: 10px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.all-tasks_task-completed {
+	text-decoration: line-through;
+	opacity: 0.5;
+}
+
+.all-tasks_checkbox {
+	appearance: none;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	border: 1px solid rgba(78, 168, 222, 1);
+	background: transparent;
+}
+
+.trash-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	border: none;
+}
+
+.all-tasks_tasks-filter {
+	width: 330px;
+	height: 40px;
+	align-self: flex-start;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	background: transparent;
+}
+
+.all-tasks_button {
+	display: flex;
+	padding: 5px 10px;
+	align-items: center;
+	justify-content: center;
+	background: rgba(30, 111, 159, 1);
+	color: rgba(242, 242, 242, 1);
+	border: none;
+	border-radius: 10px;
+}
 
 
 
