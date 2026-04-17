@@ -89,6 +89,30 @@
 	gap: 20px;
 }
 
+.all-tasks_counter {
+	width: 750px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.all-tasks_counter-text {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	color: rgba(78, 168, 222, 1);
+}
+
+.counter {
+	color: rgba(217, 217, 217, 1);
+	padding: 3px 10px;
+	background-color: rgba(51, 51, 51, 0.5);
+	border-radius: 80%;
+	border: none;
+}
+
 .all-tasks_tasklist {
 	padding-left: 0;
   margin: 0;
@@ -111,6 +135,18 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: space-between;
+}
+
+.all-tasks_left-area {
+	padding-left: 10px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.all-tasks_right-area {
+	padding-right: 10px;
 }
 
 .all-tasks_task-completed {
@@ -120,8 +156,8 @@
 
 .all-tasks_checkbox {
 	appearance: none;
-	width: 18px;
-	height: 18px;
+	width: 14px;
+	height: 14px;
 	border-radius: 50%;
 	border: 1px solid rgba(78, 168, 222, 1);
 	background: transparent;
@@ -130,15 +166,22 @@
 .trash-button {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	background: transparent;
 	border: none;
 }
 
 .all-tasks_tasks-filter {
-	width: 330px;
+	width: 750px;
 	height: 40px;
-	align-self: flex-start;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	background: transparent;
+}
+
+.all-tasks_visible-buttons {
+	width: 330px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;

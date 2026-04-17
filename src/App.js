@@ -23,13 +23,13 @@ function App() {
 	
 	function onAdd() {
 		if (inputText.trim() === "") {
-			return alert('Пустое поле задач');
+			return alert("Пустое поле задач");
 		}
 		setTasks((prev) => {
 			return [...prev, {
 				id: Date.now(),
 				text: inputText.trim(),
-				completed: false  
+				completed: false
 			}];
 		});
 		setText("")
@@ -50,18 +50,28 @@ function App() {
 					return task
 				}
 			})
-		})
+		});
 	}
 
 	function handleDelete(id) {
 		setTasks((prev) => {
-			return prev.filter((task) => task.id !== id)
+			return prev.filter((task) => task.id !== id);
 		});
 	}
 
 	function handleFilter(value) {
 		setFilter(value);
 	}
+
+	function handleClear() {
+		setTasks((prev) => {
+			return prev.filter((task) => !task.completed)
+		});
+		setFilter("all");
+	}
+
+	const total = tasks.length;
+	const completed = tasks.filter((task) => task.completed).length;
 
   return (
     <div className="page-wrapper">
@@ -75,17 +85,30 @@ function App() {
 						onKeyDown={onKeyDown} />
 					<div className="all-tasks">
 						<div className="all-tasks_tasks-filter">
-							<button className="all-tasks_button" onClick={() => handleFilter("all")}>Все задачи</button>
-							<button className="all-tasks_button" onClick={() => handleFilter("completed")}>Завершенные</button>
-							<button className="all-tasks_button" onClick={() => handleFilter("active")}>В процессе</button>
+							<div className="all-tasks_visible-buttons">
+								<button className="all-tasks_button" onClick={() => handleFilter("all")}>Все задачи</button>
+								<button className="all-tasks_button" onClick={() => handleFilter("completed")}>Завершенные</button>
+								<button className="all-tasks_button" onClick={() => handleFilter("active")}>В процессе</button>
+								</div>
+							{filter === "completed" && <button className="all-tasks_button" onClick={() => handleClear()}>
+								Очистить
+								</button>}
+						</div>
+						<div className="all-tasks_counter">
+							<span className="all-tasks_counter-text">Всего задач <span className="counter">{total}</span></span>
+							<span className="all-tasks_counter-text">Завершено <span className="counter">{completed}{" "}из{" "}{total}</span></span>
 						</div>
 						<ul className="all-tasks_tasklist">
 							{filteredTasks.map((task) =>
 								<li className="all-tasks_list-item" key={task.id}>
-									<input className="all-tasks_checkbox" type="checkbox" checked={task.completed} onClick={() => isChecked(task.id)}/>
-									<span className={task.completed ? "all-tasks_task-completed" : ""}>{task.text}</span>
-									<button className="trash-button" onClick={() => handleDelete(task.id)}><img src={trash} alt="trash"/>
-									</button>
+									<div className="all-tasks_left-area">
+										<input className="all-tasks_checkbox" type="checkbox" checked={task.completed} onClick={() => isChecked(task.id)}/>
+										<span className={task.completed ? "all-tasks_task-completed" : ""}>{task.text}</span>
+									</div>
+									<div className="all-tasks_right-area">
+										<button className="trash-button" onClick={() => handleDelete(task.id)}><img src={trash} alt="trash"/>
+										</button>
+									</div>
 									</li>)}
 						</ul>
 					</div>
