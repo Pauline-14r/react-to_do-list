@@ -2,12 +2,16 @@ import { useState } from "react";
 import './App.css';
 import logo from "./pictures/logo.svg";
 import addIcon from "./pictures/add_plus.svg";
-import trash from "./pictures/trash.svg"
+import trash from "./pictures/trash.svg";
+import edit from "./pictures/edit-icon.svg";
 
 function App() {
 	const [inputText, setText] = useState("");
 	const [tasks, setTasks] = useState([]);
 	const [filter, setFilter] = useState("all");
+	const [editingId, setEditingId] = useState(null);
+	const [editText, setEditText] = useState("");
+
 	const filteredTasks = tasks.filter((task) => {
 		if (filter === "all") {
 			return true;
@@ -33,13 +37,13 @@ function App() {
 			}];
 		});
 		setText("")
-	}
+	};
 
 	function onKeyDown(e) {
 		if (e.key === "Enter") {
 			return onAdd();
 		}
-	}
+	};
 
 	function isChecked(id) {
 		setTasks((prev) => {
@@ -51,23 +55,47 @@ function App() {
 				}
 			})
 		});
-	}
+	};
 
 	function handleDelete(id) {
 		setTasks((prev) => {
 			return prev.filter((task) => task.id !== id);
 		});
-	}
+	};
 
 	function handleFilter(value) {
 		setFilter(value);
-	}
+	};
 
 	function handleClear() {
 		setTasks((prev) => {
 			return prev.filter((task) => !task.completed)
 		});
 		setFilter("all");
+	};
+
+	function handleEditing(id, text) {
+		setEditingId(id);
+		setEditText(text)
+	};
+
+	function handleSave() {
+		setTasks((prev) => {
+				return prev.map((task) => {
+					if (task.id === editingId) {
+						return {...task, text: editText}
+					} else {
+						return task
+					}
+				})
+			})
+			setEditingId(null);
+	};
+
+	function saveChanges(e) {
+		if (e.key === "Enter") {
+			return handleSave();
+		}
 	}
 
 	const total = tasks.length;
@@ -103,9 +131,12 @@ function App() {
 								<li className="all-tasks_list-item" key={task.id}>
 									<div className="all-tasks_left-area">
 										<input className="all-tasks_checkbox" type="checkbox" checked={task.completed} onClick={() => isChecked(task.id)}/>
-										<span className={task.completed ? "all-tasks_task-completed" : ""}>{task.text}</span>
+										{editingId === task.id ?
+										(<input className="all-tasks_change-area" value={editText} onChange={(e) => setEditText(e.target.value)} onKeyDown={saveChanges}></input>)
+										: (<span className={task.completed ? "all-tasks_task-completed" : ""}>{task.text}</span>)}
 									</div>
 									<div className="all-tasks_right-area">
+										{!task.completed && <button className="edit-button" onClick={() => handleEditing(task.id, task.text)}><img src={edit} alt="edit-icon" /></button>}
 										<button className="trash-button" onClick={() => handleDelete(task.id)}><img src={trash} alt="trash"/>
 										</button>
 									</div>
@@ -121,16 +152,18 @@ function App() {
 function InputArea({inputText, setText, onAdd, onKeyDown}) {
 	return (
 		<div className="input-area">
-		<input
-			className="input-area_input" 
-			value = {inputText}
-			onChange={(e) => setText(e.target.value)}
-			onKeyDown={onKeyDown}
-			placeholder="Добавить новую задачу"></input>
+			<input
+				className="input-area_input" 
+				value = {inputText}
+				onChange={(e) => setText(e.target.value)}
+				onKeyDown={onKeyDown}
+				placeholder="Добавить новую задачу">
+			</input>
 			<button 
-			className="input-area_button"
-			onClick={onAdd}
-			>Добавить <img src={addIcon} alt="add_plus"></img></button>
+				className="input-area_button"
+				onClick={onAdd}
+				>Добавить <img src={addIcon} alt="add_plus"></img>
+			</button>
 		</div>
 	)
 }

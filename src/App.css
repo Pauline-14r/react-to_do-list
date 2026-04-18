@@ -147,6 +147,10 @@
 
 .all-tasks_right-area {
 	padding-right: 10px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
 
 .all-tasks_task-completed {
@@ -165,10 +169,25 @@
 
 .trash-button {
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	/* align-items: end; */
+	/* justify-content: flex-end; */
 	background: transparent;
 	border: none;
+}
+
+.edit-button {
+	background: transparent;
+	border: none;
+	display: flex;
+}
+
+.all-tasks_change-area {
+	width: 596px;
+	height: 20px;
+	border: none;
+	border-bottom: 1px solid rgba(242, 242, 242, 1);
+	background: transparent;
+	color: rgba(242, 242, 242, 1);
 }
 
 .all-tasks_tasks-filter {
