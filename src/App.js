@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './App.css';
 import logo from "./pictures/logo.svg";
 import addIcon from "./pictures/add_plus.svg";
@@ -7,10 +7,17 @@ import edit from "./pictures/edit-icon.svg";
 
 function App() {
 	const [inputText, setText] = useState("");
-	const [tasks, setTasks] = useState([]);
+	const [tasks, setTasks] = useState(() => {
+		const savedData = localStorage.getItem("tasks");
+		return savedData ? JSON.parse(savedData) : [];
+	});
 	const [filter, setFilter] = useState("all");
 	const [editingId, setEditingId] = useState(null);
 	const [editText, setEditText] = useState("");
+
+	useEffect(() => {
+		localStorage.setItem("tasks", JSON.stringify(tasks))
+	}, [tasks]);
 
 	const filteredTasks = tasks.filter((task) => {
 		if (filter === "all") {
@@ -132,7 +139,7 @@ function App() {
 									<div className="all-tasks_left-area">
 										<input className="all-tasks_checkbox" type="checkbox" checked={task.completed} onClick={() => isChecked(task.id)}/>
 										{editingId === task.id ?
-										(<input className="all-tasks_change-area" value={editText} onChange={(e) => setEditText(e.target.value)} onKeyDown={saveChanges}></input>)
+										(<input className="all-tasks_change-area" value={editText} onChange={(e) => setEditText(e.target.value)} onKeyDown={saveChanges} onBlur={handleSave}></input>)
 										: (<span className={task.completed ? "all-tasks_task-completed" : ""}>{task.text}</span>)}
 									</div>
 									<div className="all-tasks_right-area">
@@ -157,7 +164,7 @@ function InputArea({inputText, setText, onAdd, onKeyDown}) {
 				value = {inputText}
 				onChange={(e) => setText(e.target.value)}
 				onKeyDown={onKeyDown}
-				placeholder="Добавить новую задачу">
+				placeholder="Добавить новую задачу...">
 			</input>
 			<button 
 				className="input-area_button"
