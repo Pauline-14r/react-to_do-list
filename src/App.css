@@ -1,222 +1,39 @@
-
 .page-wrapper {
-	margin: 0 auto;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	min-height: 100vh;
-}
-
-.header {
-	margin: 0 auto;
-	width: 100%;
-	height: 200px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: rgba(13, 13, 13, 1);
-}
-
-.header_logo-wrapper {
-	width: 200px;
-	height: 50px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .main {
-	width: 100%;
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background-color: rgba(38, 38, 38, 1);
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(38, 38, 38, 1);
 }
 
 .task-area {
-	margin: 0 auto;
-	width: 750px;
-	height: 700px;
-	margin-top: -27px;
-	position: relative;
-	z-index: 2;
-	display: flex;
-	gap: 20px;
-	flex-direction: column;
-	align-items: center;
-	background: transparent;
-}
-
-.input-area {
-	width: 750px;
-	height: 60px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.input-area_input {
-	width: 603px;
-	height: 54px;
-	padding-left: 10px;
-	border: none;
-	border-radius: 8px;
-	background-color: rgba(51, 51, 51, 1);
-	color: rgba(242, 242, 242, 1);
-}
-
-.input-area_button {
-	width: 125px;
-	height: 52px;
-	border: none;
-	border-radius: 8px;
-	background-color: rgba(30, 111, 159, 1);
-	color: rgba(242, 242, 242, 1);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 5px;
+  margin: 0 auto;
+  width: 750px;
+  margin-top: -27px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
 }
 
 .all-tasks {
-	margin: 0 auto;
-	width: 750px;
-	height: 380px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 20px;
+  margin: 0 auto;
+  width: 750px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 20px;
 }
-
-.all-tasks_counter {
-	width: 750px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.all-tasks_counter-text {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 10px;
-	color: rgba(78, 168, 222, 1);
-}
-
-.counter {
-	color: rgba(217, 217, 217, 1);
-	padding: 3px 10px;
-	background-color: rgba(51, 51, 51, 0.5);
-	border-radius: 80%;
-	border: none;
-}
-
-.all-tasks_tasklist {
-	padding-left: 0;
-  margin: 0;
-	width: 740px;
-	height: 380px;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 10px;
-	list-style: none;
-}
-
-.all-tasks_list-item {
-	width: 100%;
-	height: 56px;
-	background-color: rgba(38, 38, 38, 1);
-	color: rgba(242, 242, 242, 1);
-	border: 1px solid rgba(255, 255, 255, 0.5);
-	border-radius: 10px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.all-tasks_left-area {
-	padding-left: 10px;
-	display: flex;
-	align-items: center;
-	gap: 10px;
-}
-
-.all-tasks_right-area {
-	padding-right: 10px;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-}
-
-.all-tasks_task-completed {
-	text-decoration: line-through;
-	opacity: 0.5;
-}
-
-.all-tasks_checkbox {
-	appearance: none;
-	width: 14px;
-	height: 14px;
-	border-radius: 50%;
-	border: 1px solid rgba(78, 168, 222, 1);
-	background: transparent;
-}
-
-.trash-button {
-	display: flex;
-	/* align-items: end; */
-	/* justify-content: flex-end; */
-	background: transparent;
-	border: none;
-}
-
-.edit-button {
-	background: transparent;
-	border: none;
-	display: flex;
-}
-
-.all-tasks_change-area {
-	width: 596px;
-	height: 20px;
-	border: none;
-	border-bottom: 1px solid rgba(242, 242, 242, 1);
-	background: transparent;
-	color: rgba(242, 242, 242, 1);
-}
-
-.all-tasks_tasks-filter {
-	width: 750px;
-	height: 40px;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	background: transparent;
-}
-
-.all-tasks_visible-buttons {
-	width: 330px;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	background: transparent;
-}
-
-.all-tasks_button {
-	display: flex;
-	padding: 5px 10px;
-	align-items: center;
-	justify-content: center;
-	background: rgba(30, 111, 159, 1);
-	color: rgba(242, 242, 242, 1);
-	border: none;
-	border-radius: 10px;
-}
-
-
-

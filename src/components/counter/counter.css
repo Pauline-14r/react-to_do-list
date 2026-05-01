@@ -1,0 +1,23 @@
+.all-tasks_counter {
+  width: 750px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.all-tasks_counter-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  color: rgba(78, 168, 222, 1);
+}
+
+.counter {
+  color: rgba(217, 217, 217, 1);
+  padding: 3px 10px;
+  background-color: rgba(51, 51, 51, 0.5);
+  border-radius: 80%;
+  border: none;
+}

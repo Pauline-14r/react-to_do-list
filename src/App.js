@@ -1,187 +1,155 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+
 import './App.css';
-import logo from "./pictures/logo.svg";
-import addIcon from "./pictures/add_plus.svg";
-import trash from "./pictures/trash.svg";
-import edit from "./pictures/edit-icon.svg";
+import './components/header/header.css';
+import './components/input/input.css';
+import './components/counter/counter.css';
+import './components/filters/filters.css';
+import './components/tasklist/tasklist.css';
+
+import { InputArea } from './components/input/input';
+import { Header } from './components/header/header';
+import { Filters } from './components/filters/filters';
+import { TaskCounter } from './components/counter/counter';
+import { ListItem } from './components/tasklist/tasklist';
 
 function App() {
-	const [inputText, setText] = useState("");
-	const [tasks, setTasks] = useState(() => {
-		const savedData = localStorage.getItem("tasks");
-		return savedData ? JSON.parse(savedData) : [];
-	});
-	const [filter, setFilter] = useState("all");
-	const [editingId, setEditingId] = useState(null);
-	const [editText, setEditText] = useState("");
+  const [inputText, setText] = useState('');
+  const [tasks, setTasks] = useState(() => {
+    const savedData = localStorage.getItem('tasks');
+    return savedData ? JSON.parse(savedData) : [];
+  });
+  const [filter, setFilter] = useState('all');
+  const [editingId, setEditingId] = useState(null);
+  const [editText, setEditText] = useState('');
 
-	useEffect(() => {
-		localStorage.setItem("tasks", JSON.stringify(tasks))
-	}, [tasks]);
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
-	const filteredTasks = tasks.filter((task) => {
-		if (filter === "all") {
-			return true;
-		}; 
-		if (filter === "completed") {
-			return task.completed;
-		};
-		if (filter === "active") {
-			return !task.completed;
-		};
-		return true;
-	});
-	
-	function onAdd() {
-		if (inputText.trim() === "") {
-			return alert("Пустое поле задач");
-		}
-		setTasks((prev) => {
-			return [...prev, {
-				id: Date.now(),
-				text: inputText.trim(),
-				completed: false
-			}];
-		});
-		setText("")
-	};
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === 'all') {
+      return true;
+    }
+    if (filter === 'completed') {
+      return task.completed;
+    }
+    if (filter === 'active') {
+      return !task.completed;
+    }
+    return true;
+  });
 
-	function onKeyDown(e) {
-		if (e.key === "Enter") {
-			return onAdd();
-		}
-	};
+  function onAdd() {
+    if (inputText.trim() === '') {
+      return alert('Пустое поле задач');
+    }
+    setTasks((prev) => {
+      return [
+        ...prev,
+        {
+          id: Date.now(),
+          text: inputText.trim(),
+          completed: false,
+          createdAt: Date.now(),
+        },
+      ];
+    });
+    setText('');
+  }
 
-	function isChecked(id) {
-		setTasks((prev) => {
-			return prev.map((task) => {
-				if (task.id === id) {
-					return {...task, completed: !task.completed}
-				} else {
-					return task
-				}
-			})
-		});
-	};
+  function onKeyDown(e) {
+    if (e.key === 'Enter') {
+      return onAdd();
+    }
+  }
 
-	function handleDelete(id) {
-		setTasks((prev) => {
-			return prev.filter((task) => task.id !== id);
-		});
-	};
+  function isChecked(id) {
+    setTasks((prev) => {
+      return prev.map((task) => {
+        if (task.id === id) {
+          return { ...task, completed: !task.completed };
+        } else {
+          return task;
+        }
+      });
+    });
+  }
 
-	function handleFilter(value) {
-		setFilter(value);
-	};
+  function handleDelete(id) {
+    setTasks((prev) => {
+      return prev.filter((task) => task.id !== id);
+    });
+  }
 
-	function handleClear() {
-		setTasks((prev) => {
-			return prev.filter((task) => !task.completed)
-		});
-		setFilter("all");
-	};
+  function handleFilter(value) {
+    setFilter(value);
+  }
 
-	function handleEditing(id, text) {
-		setEditingId(id);
-		setEditText(text)
-	};
+  function handleClear() {
+    setTasks((prev) => {
+      return prev.filter((task) => !task.completed);
+    });
+    setFilter('all');
+  }
 
-	function handleSave() {
-		setTasks((prev) => {
-				return prev.map((task) => {
-					if (task.id === editingId) {
-						return {...task, text: editText}
-					} else {
-						return task
-					}
-				})
-			})
-			setEditingId(null);
-	};
+  function handleEditing(id, text) {
+    setEditingId(id);
+    setEditText(text);
+  }
 
-	function saveChanges(e) {
-		if (e.key === "Enter") {
-			return handleSave();
-		}
-	}
+  function handleSave() {
+    setTasks((prev) => {
+      return prev.map((task) => {
+        if (task.id === editingId) {
+          return { ...task, text: editText };
+        } else {
+          return task;
+        }
+      });
+    });
+    setEditingId(null);
+  }
 
-	const total = tasks.length;
-	const completed = tasks.filter((task) => task.completed).length;
+  function saveChanges(e) {
+    if (e.key === 'Enter') {
+      return handleSave();
+    }
+  }
+
+  const total = tasks.length;
+  const completed = tasks.filter((task) => task.completed).length;
 
   return (
     <div className="page-wrapper">
-			<Header />
-			<div className="main">
-				<div className="task-area">
-					<InputArea
-						inputText={inputText}
-						setText={setText}
-						onAdd={onAdd}
-						onKeyDown={onKeyDown} />
-					<div className="all-tasks">
-						<div className="all-tasks_tasks-filter">
-							<div className="all-tasks_visible-buttons">
-								<button className="all-tasks_button" onClick={() => handleFilter("all")}>Все задачи</button>
-								<button className="all-tasks_button" onClick={() => handleFilter("completed")}>Завершенные</button>
-								<button className="all-tasks_button" onClick={() => handleFilter("active")}>В процессе</button>
-								</div>
-							{filter === "completed" && <button className="all-tasks_button" onClick={() => handleClear()}>
-								Очистить
-								</button>}
-						</div>
-						<div className="all-tasks_counter">
-							<span className="all-tasks_counter-text">Всего задач <span className="counter">{total}</span></span>
-							<span className="all-tasks_counter-text">Завершено <span className="counter">{completed}{" "}из{" "}{total}</span></span>
-						</div>
-						<ul className="all-tasks_tasklist">
-							{filteredTasks.map((task) =>
-								<li className="all-tasks_list-item" key={task.id}>
-									<div className="all-tasks_left-area">
-										<input className="all-tasks_checkbox" type="checkbox" checked={task.completed} onClick={() => isChecked(task.id)}/>
-										{editingId === task.id ?
-										(<input className="all-tasks_change-area" value={editText} onChange={(e) => setEditText(e.target.value)} onKeyDown={saveChanges} onBlur={handleSave}></input>)
-										: (<span className={task.completed ? "all-tasks_task-completed" : ""}>{task.text}</span>)}
-									</div>
-									<div className="all-tasks_right-area">
-										{!task.completed && <button className="edit-button" onClick={() => handleEditing(task.id, task.text)}><img src={edit} alt="edit-icon" /></button>}
-										<button className="trash-button" onClick={() => handleDelete(task.id)}><img src={trash} alt="trash"/>
-										</button>
-									</div>
-									</li>)}
-						</ul>
-					</div>
-				</div>
-			</div>
+      <Header />
+      <div className="main">
+        <div className="task-area">
+          <InputArea inputText={inputText} setText={setText} onAdd={onAdd} onKeyDown={onKeyDown} />
+          <div className="all-tasks">
+            <Filters filter={filter} handleFilter={handleFilter} handleClear={handleClear} />
+            <TaskCounter total={total} completed={completed} />
+            <ul className="all-tasks_tasklist">
+              {filteredTasks.map((task) => (
+                <ListItem
+                  key={task.id}
+                  task={task}
+                  isChecked={isChecked}
+                  isEditing={editingId === task.id}
+                  editText={editText}
+                  setEditText={setEditText}
+                  handleDelete={handleDelete}
+                  handleEditing={handleEditing}
+                  handleSave={handleSave}
+                  saveChanges={saveChanges}
+                />
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
-
-function InputArea({inputText, setText, onAdd, onKeyDown}) {
-	return (
-		<div className="input-area">
-			<input
-				className="input-area_input" 
-				value = {inputText}
-				onChange={(e) => setText(e.target.value)}
-				onKeyDown={onKeyDown}
-				placeholder="Добавить новую задачу...">
-			</input>
-			<button 
-				className="input-area_button"
-				onClick={onAdd}
-				>Добавить <img src={addIcon} alt="add_plus"></img>
-			</button>
-		</div>
-	)
-}
-
-function Header() {
-	return (
-		<div className="header">
-			<span className="header_logo-wrapper"><img src={logo} alt="logo" /></span>
-		</div>
-	)
-}
-
 
 export default App;

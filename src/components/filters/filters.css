@@ -1,0 +1,28 @@
+.all-tasks_tasks-filter {
+  width: 750px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: transparent;
+}
+
+.all-tasks_visible-buttons {
+  width: 330px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: transparent;
+}
+
+.all-tasks_button {
+  display: flex;
+  padding: 5px 10px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30, 111, 159, 1);
+  color: rgba(242, 242, 242, 1);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
