@@ -40,6 +40,13 @@ function App() {
     return true;
   });
 
+  const sortedTasks = [...filteredTasks].sort((a, b) => {
+    if (a.completed !== b.completed) {
+      return a.completed - b.completed;
+    }
+    return b.completedAt - a.completedAt;
+  });
+
   function onAdd() {
     if (inputText.trim() === '') {
       return alert('Пустое поле задач');
@@ -52,6 +59,7 @@ function App() {
           text: inputText.trim(),
           completed: false,
           createdAt: Date.now(),
+          completedAt: null,
         },
       ];
     });
@@ -68,7 +76,8 @@ function App() {
     setTasks((prev) => {
       return prev.map((task) => {
         if (task.id === id) {
-          return { ...task, completed: !task.completed };
+          const updateCompleted = !task.completed;
+          return { ...task, completed: updateCompleted, completedAt: updateCompleted ? Date.now() : null };
         } else {
           return task;
         }
@@ -130,7 +139,7 @@ function App() {
             <Filters filter={filter} handleFilter={handleFilter} handleClear={handleClear} />
             <TaskCounter total={total} completed={completed} />
             <ul className="all-tasks_tasklist">
-              {filteredTasks.map((task) => (
+              {sortedTasks.map((task) => (
                 <ListItem
                   key={task.id}
                   task={task}
